@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>自動複製並關閉</title>
+</head>
+<body>
+  <script>
+    // 指定要複製的字串
+    const textToCopy = "212506147341";
+
+    // 利用 Clipboard API 複製字串
+    navigator.clipboard.writeText(textToCopy)
+      .then(() => {
+        alert("複製完成");
+        // 若網頁是由 script 開啟，則可以關閉視窗；否則可能會被瀏覽器阻擋
+        setTimeout(() => {
+          window.close();
+        }, 500);
+      })
+      .catch(err => {
+        alert("複製失敗: " + err);
+      });
+  </script>
+</body>
+</html>
