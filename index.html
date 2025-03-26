@@ -2,53 +2,87 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <!-- 設定 viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>自動複製測試</title>
   <!-- 載入 SweetAlert2 -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
-    /* 全頁背景與字型 */
+    /* 全頁背景與基本字型 */
     body {
       background: linear-gradient(to right, #6a11cb, #2575fc);
       font-family: 'Arial', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
+      padding: 20px;
+      box-sizing: border-box;
     }
     /* 容器樣式 */
     .container {
       background: #fff;
-      padding: 40px;
+      padding: 40px 60px;
       border-radius: 8px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       text-align: center;
+      width: 100%;
+      max-width: 400px;
     }
     /* 複製按鈕樣式 */
     .btn {
       background: #2575fc;
       color: #fff;
       border: none;
-      padding: 12px 24px;
-      font-size: 16px;
+      padding: 24px 48px;
+      font-size: 32px;
       border-radius: 4px;
       cursor: pointer;
       transition: background 0.3s;
+      width: 100%;
+      margin-top: 40px;
     }
     .btn:hover {
       background: #1e65d4;
     }
     /* 顯示要複製的字串 */
     .text-to-copy {
-      font-size: 20px;
-      margin-bottom: 20px;
+      font-size: 36px;
+      margin-bottom: 40px;
+      word-wrap: break-word;
+    }
+    .text-to-copy pre {
+      font-size: 32px;
+      background: #f5f5f5;
+      padding: 20px;
+      border-radius: 4px;
+      margin: 20px 0;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    /* RWD：依螢幕大小調整字體大小 */
+    @media (max-width: 600px) {
+      .text-to-copy {
+        font-size: 32px;
+      }
+      .text-to-copy pre {
+        font-size: 28px;
+        padding: 16px;
+      }
+      .btn {
+        font-size: 28px;
+        padding: 20px 40px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="text-to-copy">
-      要複製的字串：<pre>國泰世華(013) <strong>212506147341</strong><pre>
+      要複製的字串：<br>
+      <pre>國泰世華(013)</pre>
+	  <pre><strong>212506147341</strong></pre>
     </div>
     <button class="btn" id="copyButton">點此複製</button>
   </div>
@@ -78,7 +112,6 @@
       try {
         const successful = document.execCommand('copy');
         if (successful) {
-          // 使用 swal 提示複製成功，並在提示關閉後關閉網頁
           Swal.fire({
             title: '複製完成',
             icon: 'success',
