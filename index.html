@@ -2,24 +2,38 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>點擊後複製並關閉</title>
+  <title>自動複製測試</title>
 </head>
 <body>
-  <button id="copyBtn">複製內容</button>
   <script>
-    document.getElementById("copyBtn").addEventListener("click", function() {
-      const textToCopy = "212506147341";
-      navigator.clipboard.writeText(textToCopy)
-        .then(() => {
-          alert("複製完成");
-          setTimeout(() => {
-            window.close();
-          }, 500);
-        })
-        .catch(err => {
-          alert("複製失敗: " + err);
-        });
-    });
+    // 指定要複製的字串
+    const textToCopy = "212506147341";
+
+    // 建立一個隱藏的 textarea 元素來存放文字
+    const textArea = document.createElement("textarea");
+    textArea.value = textToCopy;
+    document.body.appendChild(textArea);
+    textArea.select();
+
+    // 嘗試使用 document.execCommand('copy') 自動複製
+    try {
+      const successful = document.execCommand('copy');
+      if (successful) {
+        alert("複製完成");
+      } else {
+        alert("複製失敗");
+      }
+    } catch (err) {
+      alert("複製失敗: " + err);
+    }
+
+    // 移除 textarea 元素
+    document.body.removeChild(textArea);
+
+    // 嘗試自動關閉視窗
+    setTimeout(() => {
+      window.close();
+    }, 1000);
   </script>
 </body>
 </html>
